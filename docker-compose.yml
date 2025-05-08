@@ -10,6 +10,8 @@ services:
     volumes:
       - ../price-check-front:/app
       - /app/node_modules
+    networks:
+      - node-network
     environment:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=development
@@ -25,15 +27,24 @@ services:
       dockerfile: ./pcdocker/Dockerfile
       target: backend
     container_name: price-check-backend
+    env_file:
+    - ../price-check-backend/.env
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     volumes:
       - ../price-check-backend:/app
       - /app/node_modules
+    networks:
+      - node-network
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - NODE_ENV=development
       - VITE_PORT=${FRONTEND_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
     depends_on:
       - postgres
     command: sh -c "npm install && npm run dev"
@@ -43,6 +54,8 @@ services:
     container_name: price-check-postgres
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - node-network
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -51,6 +64,11 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - postgres-logs:/var/log/postgresql
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -h localhost -p ${POSTGRES_PORT}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   nginx:
     image: nginx:latest
@@ -59,6 +77,8 @@ services:
       - "${NGINX_PORT}:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - node-network
     depends_on:
       - frontend
       - backend
@@ -71,6 +91,8 @@ services:
     container_name: price-check-pgadmin
     ports:
       - "${PGADMIN_PORT}:80"
+    networks:
+      - node-network
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
