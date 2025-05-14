@@ -1,2 +1,5 @@
 # pcdocker
-Price Check Application dockerized set-up for development
+PriceCheck's dockerized set-up for development
+
+# DB Set-up:
+#TODO
