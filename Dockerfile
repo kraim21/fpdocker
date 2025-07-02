@@ -4,14 +4,14 @@ COPY package*.json ./
 # RUN npm install
 
 FROM base AS frontend
-COPY price-check-front/* ./
+COPY fresh-price-front/* ./
 EXPOSE 5173
 ENV VITE_PORT=5173
 ENV CHOKIDAR_USEPOLLING=true
 CMD ["npm", "start"]
 
 FROM base AS backend
-COPY price-check-backend/src/* ./
+COPY fresh-price-backend/src/* ./
 EXPOSE 4000
 ENV NODE_ENV=development
 CMD ["npm", "run", "dev"]
