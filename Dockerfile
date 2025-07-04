@@ -4,7 +4,7 @@ COPY package*.json ./
 # RUN npm install
 
 FROM base AS frontend
-COPY fresh-price-front/* ./
+COPY fresh-price-front/ ./
 EXPOSE 5173
 ENV VITE_PORT=5173
 ENV CHOKIDAR_USEPOLLING=true
