@@ -63,7 +63,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - postgres-logs:/var/log/postgresql
-    restart: unless-stopped
+    restart: no
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} -h localhost -p ${POSTGRES_PORT}"]
       interval: 10s
@@ -84,7 +84,7 @@ services:
       - backend
     environment:
       - NODE_ENV=development
-    restart: unless-stopped
+    restart: no
 
   pgadmin:
     image: dpage/pgadmin4:snapshot
@@ -98,7 +98,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
     depends_on:
       - postgres
-    restart: unless-stopped
+    restart: no
 
 networks:
   node-network:
