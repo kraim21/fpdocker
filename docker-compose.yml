@@ -86,20 +86,6 @@ services:
       - NODE_ENV=development
     restart: unless-stopped
 
-  pgadmin:
-    image: dpage/pgadmin4:snapshot
-    container_name: fresh-price-pgadmin
-    ports:
-      - "${PGADMIN_PORT}:80"
-    networks:
-      - node-network
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
-      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
-    depends_on:
-      - postgres
-    restart: unless-stopped
-
 networks:
   node-network:
     driver: bridge

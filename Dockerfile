@@ -1,4 +1,4 @@
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 WORKDIR /app
 COPY package*.json ./
 # RUN npm install
@@ -21,7 +21,7 @@ COPY --from=frontend /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
-FROM node:18-alpine AS backend-prod
+FROM node:20-alpine AS backend-prod
 COPY --from=backend /app/dist /app
 EXPOSE 4000
 CMD ["node", "server.js"]
