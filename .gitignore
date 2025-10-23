@@ -1,0 +1,13 @@
+.env
+*.env.*
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.dev.yml
+docker-compose.prod.yml.bak
+docker-compose.debug.yml
+docker-data/
+postgres-data/
+postgres-logs/
+node_modules/
+*.pid
+*.log
