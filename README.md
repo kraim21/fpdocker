@@ -36,7 +36,7 @@ PriceCheck's dockerized set-up for development
 	```sh
 	git clone https://github.com/kraim21/fpdocker.git
 	git clone https://github.com/kraim21/fresh-price-front.git
-	https://github.com/kraim21/fresh-price-backend.git
+	git clone https://github.com/kraim21/fresh-price-backend.git
 	```
 
 5. **Set environment variables**  
