@@ -42,14 +42,25 @@ PriceCheck's dockerized set-up for development
 5. **Set environment variables**  
 	Inside `fpdocker`, create a new file `.env` and copy the following:
 	```env
+	# Backend URL for the React frontend to communicate with
+	REACT_APP_BACKEND_URL=http://localhost:4000
+	
+	# Ports for the backend and frontend services
+	BACKEND_PORT=4000
+	FRONTEND_PORT=5173
+	
+	# POSTGRES
 	POSTGRES_USER=admin
 	POSTGRES_PASSWORD=admin
 	POSTGRES_DB=freshprice
 	POSTGRES_HOST=postgres
 	POSTGRES_PORT=5432
-
-	JWT_SECRET=9Ao39DDCf7adIcMKrmixt1DrQHCBjIAO
-	ALLOWED_ORIGINS=http://localhost:8083
+	
+	# Full database URL
+	DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}
+	
+	# NGINX
+	NGINX_PORT=8083
 	```
 
     Do the same with `fresh-price-front` and `fresh-price-backend`. Please refer to the repository README.md
