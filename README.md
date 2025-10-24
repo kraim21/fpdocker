@@ -26,7 +26,7 @@ PriceCheck's dockerized set-up for development
 	```
 
 	**Git download:**
-	```sh
+	```sh`
 	brew install git
 	```
 
@@ -65,3 +65,14 @@ PriceCheck's dockerized set-up for development
 
     Do the same with `fresh-price-front` and `fresh-price-backend`. Please refer to the repository README.md
 
+6. **Build and run the project**
+   To start the project:
+   ```sh
+   docker-compose up -d
+   ```
+
+   To rebuild (if you have changes or want a fresh build):
+   ```sh
+   docker-compose build --no-cache
+   docker-compose up -d
+   ```
