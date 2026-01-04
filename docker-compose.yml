@@ -68,22 +68,6 @@ services:
       timeout: 5s
       retries: 5
 
-  nginx:
-    image: nginx:latest
-    container_name: fresh-price-nginx
-    ports:
-      - "${NGINX_PORT}:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    networks:
-      - node-network
-    depends_on:
-      - frontend
-      - backend
-    environment:
-      - NODE_ENV=development
-    restart: unless-stopped
-
 networks:
   node-network:
     driver: bridge
